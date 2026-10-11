@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0756a5">
+  <title>ClueCount — Play-Along Scorekeeper</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">CC</div>
+      <div><h1>ClueCount</h1><p class="subtitle">Play-along scorekeeper</p></div>
+      <button id="resetButton" class="button button-quiet reset" type="button">New game</button>
+    </header>
+    <section class="score-panel" aria-live="polite">
+      <p class="eyebrow">YOUR SCORE</p><div id="score" class="score">$0</div>
+      <div class="score-meta"><span id="clueCount">0 clues scored</span><span id="roundLabel">Regular round</span></div>
+    </section>
+    <section class="panel round-panel">
+      <h2>Round</h2>
+      <div class="round-options" role="radiogroup" aria-label="Choose round">
+        <label class="round-option"><input type="radio" name="round" value="regular" checked><span>Regular</span></label>
+        <label class="round-option"><input type="radio" name="round" value="double"><span>Double</span></label>
+        <label class="round-option"><input type="radio" name="round" value="final"><span>Final</span></label>
+      </div>
+      <p id="roundHelp" class="hint">Choose the value of the clue, then mark your result.</p>
+    </section>
+    <section id="clueSection" class="panel">
+      <div class="section-heading"><h2>Clue value</h2><span class="hint">Select one</span></div>
+      <div id="valueGrid" class="value-grid" aria-label="Clue value"></div>
+      <div class="action-row"><button id="dailyDoubleButton" class="button button-outline" type="button">＋ Daily Double</button><span id="selectedSummary" class="selected-summary">Select a value</span></div>
+      <div id="dailyDoublePanel" class="wager-panel hidden">
+        <div class="section-heading"><div><h3>Daily Double wager</h3><p id="wagerLimit" class="hint">Maximum wager: $1,000</p></div><button id="cancelDailyDouble" class="text-button" type="button">Cancel</button></div>
+        <label for="dailyWager">Your wager ($)</label><input id="dailyWager" type="number" min="0" step="1" inputmode="numeric" value="200">
+        <p class="hint">Correct adds your wager; incorrect subtracts it. A pass counts as incorrect.</p>
+      </div>
+      <div class="result-buttons">
+        <button id="correctButton" class="button button-correct" type="button" disabled>✓ Correct</button>
+        <button id="wrongButton" class="button button-wrong" type="button" disabled>✕ Incorrect</button>
+        <button id="passButton" class="button button-pass" type="button" disabled>Pass</button>
+      </div>
+    </section>
+    <section id="finalSection" class="panel hidden">
+      <h2>Final round</h2><p class="hint">Enter your wager, then reveal your result. A correct response wins the wager; an incorrect response loses it. Passing loses the wager.</p>
+      <label for="finalWager">Your wager ($)</label><input id="finalWager" type="number" min="0" step="1" inputmode="numeric" value="0">
+      <p id="finalLimit" class="hint">Maximum wager: $0</p>
+      <div class="result-buttons">
+        <button id="finalCorrect" class="button button-correct" type="button">✓ Correct</button>
+        <button id="finalWrong" class="button button-wrong" type="button">✕ Incorrect</button>
+        <button id="finalPass" class="button button-pass" type="button">Pass</button>
+      </div>
+    </section>
+    <section class="panel history-panel">
+      <div class="section-heading"><h2>Recent clues</h2><button id="undoButton" class="text-button" type="button" disabled>Undo last</button></div>
+      <ol id="history" class="history-list"><li class="empty-history">Your scored clues will appear here.</li></ol>
+    </section>
+    <footer><span>Scores are saved in this browser on this device.</span><span class="disclaimer">Unofficial fan-made tool; not affiliated with or endorsed by any television program or rights holder.</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
